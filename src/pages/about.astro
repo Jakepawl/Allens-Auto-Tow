@@ -1,0 +1,28 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import CertificationBadges from '~/components/widgets/CertificationBadges.astro';
+import CTABanner from '~/components/widgets/CTABanner.astro';
+import { business } from '~/utils/business-info';
+
+const metadata = {
+  title: "About Us — Since 1981",
+  description: `Allen's Automotive & Towing has served Livermore since ${business.foundingYear}. ASE-certified mechanics, honest pricing, same-day service.`,
+};
+---
+
+<PageLayout metadata={metadata} breadcrumbs={[{ label: 'About', href: '/about' }]}>
+  <article class="prose prose-blue max-w-none">
+    <h1 style="font-family: var(--font-heading)">About Allen's Automotive & Towing Inc</h1>
+    <p class="lead text-lg text-gray-600">
+      Since {business.foundingYear}, Allen's Automotive & Towing has provided honest, expert auto repair
+      to the Livermore community and surrounding Tri-Valley area. We're your neighborhood shop — not a
+      chain, not a franchise — just a team of certified technicians who care about doing the job right.
+    </p>
+    <h2 style="font-family: var(--font-heading)">Our Mission</h2>
+    <p>We believe auto repair should be straightforward: diagnose the problem, explain it clearly, give you an honest estimate, and fix it right the first time.</p>
+    <h2 style="font-family: var(--font-heading)">Our Certifications</h2>
+    <p>Our technicians hold ASE certifications, including ASE Master Technician credentials. We're also a STAR Certified Smog station and ACDelco service center.</p>
+  </article>
+  <div class="mt-8"><CertificationBadges /></div>
+  <div class="mt-8"><CTABanner headline="Ready to Experience the Difference?" subtext="Schedule your next service with Livermore's most trusted auto shop." /></div>
+</PageLayout>

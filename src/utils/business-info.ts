@@ -1,0 +1,46 @@
+export const business = {
+  name: "Allen's Automotive & Towing Inc",
+  legalName: "Allen's Automotive & Towing Inc",
+  description: "Trusted auto repair and 24/7 towing in Livermore, CA since 1981. ASE-certified mechanics, same-day service, honest pricing.",
+  foundingYear: 1981,
+  phone: {
+    repair: "925-449-3000",
+    repairTel: "+19254493000",
+    towing: "925-443-1767",
+    towingTel: "+19254431767",
+  },
+  address: {
+    street: "185 N K St",
+    city: "Livermore",
+    state: "CA",
+    zip: "94550",
+    country: "US",
+    full: "185 N K St, Livermore, CA 94550",
+  },
+  geo: {
+    latitude: 37.6837567,
+    longitude: -121.7715236,
+  },
+  hours: {
+    repair: "Mon-Fri 8:00 AM - 5:00 PM",
+    repairSchema: ["Mo-Fr 08:00-17:00"],
+    towing: "24/7",
+  },
+  serviceArea: [
+    "Livermore",
+    "Pleasanton",
+    "Dublin",
+    "Altamont Pass",
+    "I-580",
+    "I-680",
+    "California State Route 84",
+  ],
+  certifications: ["ASE Certified", "ASE Master Technician", "STAR Certified Smog", "ACDelco", "CTTA"],
+  paymentMethods: ["Cash", "Debit/ATM", "Visa", "Mastercard", "Fleet Cards"],
+  priceRange: "$",
+  social: {
+    facebook: "https://business.facebook.com/Allens-Automotive-Towing-Inc-1830622830492797/",
+    googleMaps: "https://maps.app.goo.gl/SNTU1iUyfz3kfJWt7",
+  },
+  url: "https://www.allensautotow.com",
+} as const;

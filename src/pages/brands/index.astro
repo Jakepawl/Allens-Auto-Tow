@@ -1,0 +1,23 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { getCollection } from 'astro:content';
+
+const brands = (await getCollection('brands')).sort((a, b) => a.data.brand.localeCompare(b.data.brand));
+
+const metadata = {
+  title: 'Car Brands We Service in Livermore, CA',
+  description: "Allen's Automotive repairs all major vehicle brands — Honda, Toyota, Ford, Chevrolet, BMW, and 20+ more. ASE-certified technicians.",
+};
+---
+
+<PageLayout metadata={metadata} breadcrumbs={[{ label: 'Brands', href: '/brands' }]}>
+  <h1 class="text-3xl font-bold text-gray-900 mb-8" style="font-family: var(--font-heading)">Brands We Service</h1>
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+    {brands.map((brand) => (
+      <a href={`/brands/${brand.id}`} class="bg-white border rounded-lg p-4 text-center hover:shadow-md hover:border-[var(--color-primary)] transition-all cursor-pointer">
+        <div class="font-semibold text-gray-900" style="font-family: var(--font-heading)">{brand.data.brand}</div>
+        <div class="text-xs text-gray-500 mt-1">{brand.data.specialties.slice(0, 3).join(' · ')}</div>
+      </a>
+    ))}
+  </div>
+</PageLayout>

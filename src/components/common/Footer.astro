@@ -1,0 +1,86 @@
+---
+import { business } from '~/utils/business-info';
+import { footerNav } from '~/navigation';
+import { Icon } from 'astro-icon/components';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-gray-900 text-gray-300">
+  <!-- Main footer grid -->
+  <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+    <!-- Brand / contact column -->
+    <div>
+      <div class="text-white font-bold text-lg mb-3">{business.name}</div>
+      <p class="text-sm mb-4">Honest auto repair in Livermore since {business.foundingYear}.</p>
+      <address class="not-italic text-sm space-y-2">
+        <div class="flex items-start gap-2">
+          <Icon name="tabler:map-pin" class="w-4 h-4 mt-0.5 shrink-0" />
+          <a href={business.social.googleMaps} target="_blank" rel="noopener" class="hover:text-white">
+            {business.address.full}
+          </a>
+        </div>
+        <div class="flex items-center gap-2">
+          <Icon name="tabler:phone" class="w-4 h-4 shrink-0" />
+          <a href={`tel:${business.phone.repairTel}`} class="hover:text-white">Repair: {business.phone.repair}</a>
+        </div>
+        <div class="flex items-center gap-2">
+          <Icon name="tabler:truck" class="w-4 h-4 shrink-0" />
+          <a href={`tel:${business.phone.towingTel}`} class="hover:text-white">Towing: {business.phone.towing}</a>
+        </div>
+      </address>
+    </div>
+
+    <!-- Services links -->
+    <div>
+      <div class="text-white font-semibold mb-3">Services</div>
+      <ul class="space-y-2 text-sm">
+        {footerNav.services.map((link) => (
+          <li><a href={link.href} class="hover:text-white transition-colors">{link.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Company links -->
+    <div>
+      <div class="text-white font-semibold mb-3">Company</div>
+      <ul class="space-y-2 text-sm">
+        {footerNav.company.map((link) => (
+          <li><a href={link.href} class="hover:text-white transition-colors">{link.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Hours + social icons -->
+    <div>
+      <div class="text-white font-semibold mb-3">Hours</div>
+      <dl class="text-sm space-y-2">
+        <div>
+          <dt class="font-medium text-gray-400">Repair Shop</dt>
+          <dd>{business.hours.repair}</dd>
+        </div>
+        <div>
+          <dt class="font-medium text-gray-400">Towing &amp; Roadside</dt>
+          <dd class="text-green-400 font-semibold">{business.hours.towing}</dd>
+        </div>
+      </dl>
+      <div class="mt-4 flex gap-3">
+        <a href={business.social.facebook} target="_blank" rel="noopener" aria-label="Facebook" class="hover:text-white">
+          <Icon name="tabler:brand-facebook" class="w-5 h-5" />
+        </a>
+        <a href={business.social.googleMaps} target="_blank" rel="noopener" aria-label="Google Maps" class="hover:text-white">
+          <Icon name="tabler:brand-google" class="w-5 h-5" />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
+      <span>&copy; {currentYear} {business.name}. All rights reserved.</span>
+      <span class="mt-2 sm:mt-0">Serving {business.serviceArea.slice(0, 3).join(', ')}, and surrounding areas</span>
+    </div>
+  </div>
+</footer>

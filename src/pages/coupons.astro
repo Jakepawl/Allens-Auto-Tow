@@ -1,0 +1,37 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { business } from '~/utils/business-info';
+import { Icon } from 'astro-icon/components';
+
+const coupons = [
+  { title: '$25 Off Any Service Over $200', code: 'SAVE25', expires: 'Limited time', description: 'Present this coupon at time of service.' },
+  { title: 'Free Brake Inspection', code: 'BRAKES', expires: 'Ongoing', description: 'Comprehensive brake inspection at no charge.' },
+  { title: '$10 Off Oil Change', code: 'OIL10', expires: 'Limited time', description: 'Valid for conventional or synthetic oil change.' },
+  { title: 'Free Check Engine Light Diagnosis', code: 'CHECK', expires: 'Ongoing', description: "We'll read your codes and explain the issue for free." },
+];
+
+const metadata = {
+  title: "Auto Repair Coupons",
+  description: "Save on auto repair in Livermore with coupons from Allen's Automotive. Brake inspection, oil change, and service discounts.",
+};
+---
+
+<PageLayout metadata={metadata} breadcrumbs={[{ label: 'Coupons', href: '/coupons' }]}>
+  <h1 class="text-3xl font-bold text-gray-900 mb-3" style="font-family: var(--font-heading)">Service Coupons</h1>
+  <p class="text-gray-600 mb-8">Print or show on your phone. Call <a href={`tel:${business.phone.repairTel}`} class="font-semibold" style="color: var(--color-primary)">{business.phone.repair}</a> to schedule.</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {coupons.map((coupon) => (
+      <div class="border-2 border-dashed rounded-lg p-6" style="border-color: var(--color-primary); background: #EFF6FF">
+        <div class="flex items-start justify-between mb-3">
+          <h2 class="text-lg font-bold" style="color: #1E3A8A; font-family: var(--font-heading)">{coupon.title}</h2>
+          <Icon name="tabler:scissors" class="w-5 h-5 shrink-0" style="color: var(--color-primary)" />
+        </div>
+        <p class="text-sm text-gray-600 mb-3">{coupon.description}</p>
+        <div class="flex items-center justify-between text-sm">
+          <span class="px-2 py-1 rounded font-mono font-semibold" style="background: #DBEAFE; color: var(--color-primary)">{coupon.code}</span>
+          <span class="text-gray-500">{coupon.expires}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</PageLayout>

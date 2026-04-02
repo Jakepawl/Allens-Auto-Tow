@@ -1,0 +1,7 @@
+---
+import { buildLocalBusinessSchema } from '~/utils/seo';
+
+const schema = buildLocalBusinessSchema();
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

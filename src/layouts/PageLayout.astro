@@ -1,0 +1,28 @@
+---
+import Layout from './Layout.astro';
+import Header from '~/components/common/Header.astro';
+import Footer from '~/components/common/Footer.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+
+import type { MetaData } from '~/types';
+
+interface Props {
+  /** Page-level SEO metadata forwarded to the base Layout. */
+  metadata?: MetaData;
+  /** Optional breadcrumb trail shown below the header. */
+  breadcrumbs?: { label: string; href: string }[];
+  /** When true, removes the default horizontal padding / max-width on <main>. */
+  fullWidth?: boolean;
+}
+
+const { metadata, breadcrumbs, fullWidth = false } = Astro.props;
+---
+
+<Layout metadata={metadata}>
+  <Header />
+  <main class={fullWidth ? '' : 'max-w-7xl mx-auto px-4 py-8'}>
+    {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+    <slot />
+  </main>
+  <Footer />
+</Layout>

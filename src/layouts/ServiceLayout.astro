@@ -1,0 +1,41 @@
+---
+import PageLayout from './PageLayout.astro';
+import CTABanner from '~/components/widgets/CTABanner.astro';
+import FAQSection from '~/components/widgets/FAQSection.astro';
+import ServiceSchema from '~/components/seo/ServiceSchema.astro';
+
+import type { MetaData } from '~/types';
+
+interface Props {
+  /** Page-level SEO metadata. */
+  metadata: MetaData;
+  /** Breadcrumb trail; passed through to PageLayout. */
+  breadcrumbs: { label: string; href: string }[];
+  /** Service identity used to render structured data. */
+  schema: {
+    name: string;
+    description: string;
+    slug: string;
+  };
+  /** Optional FAQ pairs rendered as an FAQ section + FAQ schema below the article. */
+  faqs?: { question: string; answer: string }[];
+}
+
+const { metadata, breadcrumbs, schema, faqs } = Astro.props;
+---
+
+<PageLayout metadata={metadata} breadcrumbs={breadcrumbs}>
+  <!-- Inject Service structured data into <head> via the schema component -->
+  <ServiceSchema name={schema.name} description={schema.description} slug={schema.slug} />
+
+  <!-- Main article content supplied by each service page -->
+  <article class="prose prose-blue max-w-none">
+    <slot />
+  </article>
+
+  <!-- Optional FAQ block (only rendered when faqs are provided and non-empty) -->
+  {faqs && faqs.length > 0 && <FAQSection faqs={faqs} heading="Common Questions" />}
+
+  <!-- Persistent call-to-action banner at the bottom of every service page -->
+  <CTABanner />
+</PageLayout>

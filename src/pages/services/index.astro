@@ -1,0 +1,25 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+
+const metadata = {
+  title: 'Auto Repair Services in Livermore, CA',
+  description: "Full list of auto repair services at Allen's Automotive & Towing. Brakes, tires, towing, AC, engine, transmission, smog, and more.",
+};
+---
+
+<PageLayout metadata={metadata} breadcrumbs={[{ label: 'Services', href: '/services' }]}>
+  <h1 class="text-3xl font-bold text-gray-900 mb-8" style="font-family: var(--font-heading)">Our Services</h1>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {services.map((service) => (
+      <a href={`/services/${service.id}`} class="bg-white border rounded-lg p-6 hover:shadow-md transition-shadow group cursor-pointer">
+        <Icon name={service.data.icon} class="w-10 h-10 text-[var(--color-primary)] mb-3" />
+        <h2 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[var(--color-primary)]" style="font-family: var(--font-heading)">{service.data.title}</h2>
+        <p class="text-sm text-gray-600">{service.data.shortDescription}</p>
+      </a>
+    ))}
+  </div>
+</PageLayout>

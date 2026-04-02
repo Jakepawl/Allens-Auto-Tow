@@ -1,0 +1,45 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import ReviewSchema from '~/components/seo/ReviewSchema.astro';
+import { getCollection } from 'astro:content';
+
+const testimonials = await getCollection('testimonials');
+const reviews = testimonials.map((t) => ({
+  author: t.data.author,
+  rating: t.data.rating,
+  date: t.data.date,
+  service: t.data.service,
+  vehicle: t.data.vehicle,
+  body: t.body ?? '',
+}));
+
+const metadata = {
+  title: "Customer Reviews",
+  description: `Read what Livermore customers say about Allen's Automotive & Towing. ${reviews.length}+ verified reviews. ASE-certified service since 1981.`,
+};
+---
+
+<PageLayout metadata={metadata} breadcrumbs={[{ label: 'Reviews', href: '/reviews' }]}>
+  <h1 class="text-3xl font-bold text-gray-900 mb-8" style="font-family: var(--font-heading)">What Our Customers Say</h1>
+  <div class="space-y-6">
+    {reviews.map((review) => (
+      <div class="bg-white border rounded-lg p-6 transition-shadow hover:shadow-md">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="flex" style="color: var(--color-star)" aria-label={`${review.rating} stars`}>
+            {Array.from({ length: 5 }, (_, i) => (
+              <span style={i >= review.rating ? { color: '#D1D5DB' } : undefined}>&#9733;</span>
+            ))}
+          </div>
+          {review.service && <span class="text-xs px-2 py-0.5 rounded-full" style="background: #DBEAFE; color: var(--color-primary)">{review.service}</span>}
+        </div>
+        <blockquote class="text-gray-700 mb-3">"{review.body}"</blockquote>
+        <div class="text-sm text-gray-500">
+          <span class="font-medium text-gray-900">{review.author}</span>
+          {review.vehicle && <span> · {review.vehicle}</span>}
+          <span> · {review.date}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+  <ReviewSchema reviews={reviews} />
+</PageLayout>

@@ -1,0 +1,13 @@
+---
+import { buildServiceSchema } from '~/utils/seo';
+
+interface Props {
+  name: string;
+  description: string;
+  slug: string;
+}
+
+const schema = buildServiceSchema(Astro.props);
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

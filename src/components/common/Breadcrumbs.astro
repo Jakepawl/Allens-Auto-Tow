@@ -1,0 +1,41 @@
+---
+import { buildBreadcrumbSchema } from '~/utils/seo';
+import { business } from '~/utils/business-info';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  /** Ordered list of crumb items after "Home". The last item is the current page. */
+  items: { label: string; href: string }[];
+}
+
+const { items } = Astro.props;
+
+// Build full schema items list starting from Home
+const schemaItems = [
+  { name: 'Home', url: business.url },
+  ...items.map((item) => ({ name: item.label, url: `${business.url}${item.href}` })),
+];
+const schema = buildBreadcrumbSchema(schemaItems);
+---
+
+<nav aria-label="Breadcrumb" class="text-sm text-gray-500 mb-4">
+  <ol class="flex flex-wrap items-center gap-1">
+    <!-- Always start with Home -->
+    <li><a href="/" class="hover:text-blue-700">Home</a></li>
+
+    {items.map((item, i) => (
+      <li class="flex items-center gap-1">
+        <Icon name="tabler:chevron-right" class="w-3.5 h-3.5" />
+        {i === items.length - 1 ? (
+          <!-- Last crumb is the current page — not a link -->
+          <span class="text-gray-900 font-medium" aria-current="page">{item.label}</span>
+        ) : (
+          <a href={item.href} class="hover:text-blue-700">{item.label}</a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<!-- Structured data for search engines -->
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

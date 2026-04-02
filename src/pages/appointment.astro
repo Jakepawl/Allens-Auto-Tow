@@ -1,0 +1,21 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import ContactForm from '~/components/islands/ContactForm';
+import { business } from '~/utils/business-info';
+
+const metadata = {
+  title: "Request an Appointment",
+  description: `Schedule auto repair at Allen's Automotive in Livermore. Same-day appointments often available. Call ${business.phone.repair}.`,
+};
+---
+
+<PageLayout metadata={metadata} breadcrumbs={[{ label: 'Appointment', href: '/appointment' }]}>
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 mb-3" style="font-family: var(--font-heading)">Request an Appointment</h1>
+    <p class="text-gray-600 mb-8">
+      Fill out the form below and we'll confirm within one business day.
+      Need immediate help? Call <a href={`tel:${business.phone.repairTel}`} class="font-semibold" style="color: var(--color-primary)">{business.phone.repair}</a>.
+    </p>
+    <ContactForm client:visible formType="appointment" />
+  </div>
+</PageLayout>

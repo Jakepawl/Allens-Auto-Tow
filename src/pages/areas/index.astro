@@ -1,0 +1,27 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+
+const locations = await getCollection('locations');
+
+const metadata = {
+  title: 'Service Areas — Livermore, Pleasanton, Dublin & More',
+  description: "Allen's Automotive serves Livermore, Pleasanton, Dublin, Altamont Pass, I-580, and I-680 corridors. 24/7 towing available.",
+};
+---
+
+<PageLayout metadata={metadata} breadcrumbs={[{ label: 'Service Areas', href: '/areas' }]}>
+  <h1 class="text-3xl font-bold text-gray-900 mb-8" style="font-family: var(--font-heading)">Areas We Serve</h1>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {locations.map((loc) => (
+      <a href={`/areas/${loc.id}`} class="bg-white border rounded-lg p-6 hover:shadow-md transition-shadow cursor-pointer">
+        <Icon name="tabler:map-pin" class="w-8 h-8 text-[var(--color-primary)] mb-3" />
+        <h2 class="text-lg font-semibold text-gray-900 mb-1" style="font-family: var(--font-heading)">{loc.data.area}</h2>
+        {loc.data.distanceFromShop && (
+          <p class="text-sm text-gray-500">{loc.data.distanceFromShop} from our shop</p>
+        )}
+      </a>
+    ))}
+  </div>
+</PageLayout>

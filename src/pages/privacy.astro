@@ -1,0 +1,19 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { business } from '~/utils/business-info';
+
+const metadata = { title: 'Privacy Policy', description: `Privacy policy for ${business.name} website.` };
+---
+
+<PageLayout metadata={metadata} breadcrumbs={[{ label: 'Privacy Policy', href: '/privacy' }]}>
+  <article class="prose prose-blue max-w-3xl">
+    <h1 style="font-family: var(--font-heading)">Privacy Policy</h1>
+    <p><em>Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</em></p>
+    <h2 style="font-family: var(--font-heading)">Information We Collect</h2>
+    <p>When you use our contact or appointment forms, we collect the information you provide: name, phone number, email address, and service details. We use this solely to respond to your inquiry and schedule service.</p>
+    <h2 style="font-family: var(--font-heading)">Analytics</h2>
+    <p>We use Cloudflare Web Analytics, a privacy-focused tool that does not use cookies, does not collect personal data, and is fully compliant with GDPR, CCPA, and PECR.</p>
+    <h2 style="font-family: var(--font-heading)">Contact</h2>
+    <p>Questions? Call <a href={`tel:${business.phone.repairTel}`}>{business.phone.repair}</a> or visit us at {business.address.full}.</p>
+  </article>
+</PageLayout>

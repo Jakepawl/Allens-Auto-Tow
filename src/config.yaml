@@ -1,0 +1,42 @@
+site:
+  name: "Allen's Automotive & Towing Inc"
+  site: "https://www.allensautotow.com"
+  base: "/"
+  trailingSlash: false
+
+metadata:
+  title:
+    default: "Allen's Automotive & Towing Inc | Auto Repair in Livermore, CA"
+    template: "%s | Allen's Automotive & Towing Inc"
+  description: "Trusted auto repair and 24/7 towing in Livermore, CA since 1981. ASE-certified mechanics, same-day service, honest pricing. Call 925-449-3000."
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: "Allen's Automotive & Towing Inc"
+    type: website
+    locale: "en_US"
+
+i18n:
+  language: en
+  textDirection: ltr
+
+blog:
+  isEnabled: true
+  postsPerPage: 6
+  post:
+    isEnabled: true
+    permalink: "/blog/%slug%"
+  category:
+    isEnabled: true
+    pathname: "category"
+  tag:
+    isEnabled: true
+    pathname: "tag"
+
+analytics:
+  cloudflare:
+    beacon: ""
+
+ui:
+  theme: "light"

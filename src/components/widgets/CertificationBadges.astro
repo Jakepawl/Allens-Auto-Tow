@@ -1,0 +1,22 @@
+---
+const badges = [
+  { name: 'ASE Certified', initials: 'ASE' },
+  { name: 'STAR Certified Smog', initials: 'STAR' },
+  { name: 'ACDelco', initials: 'ACD' },
+];
+---
+
+<section class="py-8 bg-gray-50 border-y">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+      {badges.map((badge) => (
+        <div class="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors">
+          <div class="w-12 h-12 border-2 border-current rounded-full flex items-center justify-center text-xs font-bold">
+            {badge.initials}
+          </div>
+          <span class="text-sm font-medium">{badge.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

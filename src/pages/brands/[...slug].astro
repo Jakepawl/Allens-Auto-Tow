@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import ServiceLayout from '~/layouts/ServiceLayout.astro';
+
+export async function getStaticPaths() {
+  const brands = await getCollection('brands');
+  return brands.map((brand) => ({
+    params: { slug: brand.id },
+    props: { brand },
+  }));
+}
+
+const { brand } = Astro.props;
+const { Content } = await render(brand);
+---
+
+<ServiceLayout
+  metadata={{
+    title: brand.data.title,
+    description: brand.data.description,
+  }}
+  breadcrumbs={[
+    { label: 'Brands', href: '/brands' },
+    { label: `${brand.data.brand} Repair`, href: `/brands/${brand.id}` },
+  ]}
+  schema={{
+    name: `${brand.data.brand} Repair`,
+    description: brand.data.description,
+    slug: `brands/${brand.id}`,
+  }}
+>
+  <Content />
+</ServiceLayout>

@@ -1,0 +1,32 @@
+---
+import { business } from '~/utils/business-info';
+import { Icon } from 'astro-icon/components';
+
+const reasons = [
+  { icon: 'tabler:calendar-check', title: 'Same-Day Service', description: 'Most repairs completed the same day. Drop off in the morning, pick up by afternoon.' },
+  { icon: 'tabler:certificate', title: 'ASE Certified', description: 'Our technicians hold ASE certifications and ASE Master Technician credentials.' },
+  { icon: 'tabler:receipt-off', title: 'Transparent Pricing', description: 'Written estimates before work begins. No hidden fees, no surprise charges.' },
+  { icon: 'tabler:clock-24', title: '24/7 Towing', description: `Broke down at 2 AM? Our towing team is available around the clock. Call ${business.phone.towing}.` },
+  { icon: 'tabler:history', title: `Trusted Since ${business.foundingYear}`, description: 'Over 40 years serving Livermore and the Tri-Valley area with honest, dependable service.' },
+  { icon: 'tabler:car', title: 'All Makes & Models', description: 'Domestic, import, Asian, European — we service every major brand on the road.' },
+];
+---
+
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-900 mb-3">Why Choose Allen's</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {reasons.map((reason) => (
+        <div class="flex gap-4">
+          <Icon name={reason.icon} class="w-8 h-8 text-[var(--color-primary)] shrink-0 mt-1" />
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-1">{reason.title}</h3>
+            <p class="text-sm text-gray-600">{reason.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

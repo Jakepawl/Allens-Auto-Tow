@@ -1,0 +1,51 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/common/Header.astro';
+import Footer from '~/components/common/Footer.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import ServiceGrid from '~/components/widgets/ServiceGrid.astro';
+import WhyChooseUs from '~/components/widgets/WhyChooseUs.astro';
+import CertificationBadges from '~/components/widgets/CertificationBadges.astro';
+import CTABanner from '~/components/widgets/CTABanner.astro';
+import FAQSection from '~/components/widgets/FAQSection.astro';
+import LocalBusinessSchema from '~/components/seo/LocalBusinessSchema.astro';
+import ReviewSchema from '~/components/seo/ReviewSchema.astro';
+import { getCollection } from 'astro:content';
+
+const testimonials = await getCollection('testimonials');
+const reviews = testimonials.map((t) => ({
+  author: t.data.author,
+  rating: t.data.rating,
+  date: t.data.date,
+  body: t.body ?? '',
+}));
+
+const homeFAQs = [
+  { question: 'Do you offer same-day auto repair?', answer: 'Yes! Most common repairs — brakes, oil changes, belts, hoses, and diagnostics — are completed the same day you drop off your vehicle.' },
+  { question: 'What are your hours?', answer: 'Our repair shop is open Monday through Friday, 8:00 AM to 5:00 PM. Our towing service is available 24/7, including weekends and holidays.' },
+  { question: 'Do you work on import and domestic vehicles?', answer: 'Absolutely. Our ASE-certified technicians service all makes and models — Honda, Toyota, Ford, Chevrolet, BMW, Mercedes, and everything in between.' },
+  { question: 'How much does a typical repair cost?', answer: 'It depends on the service needed. We provide a written estimate before any work begins so there are never surprise charges. Call 925-449-3000 for a free estimate.' },
+  { question: 'Do you offer towing to your shop?', answer: 'Yes. Call our 24/7 towing line at 925-443-1767 and we can tow your vehicle directly to our shop for repair.' },
+];
+
+const metadata = {
+  title: "Allen's Automotive & Towing Inc | Auto Repair in Livermore, CA",
+  description: 'Trusted auto repair and 24/7 towing in Livermore, CA since 1981. ASE-certified mechanics, same-day service, honest pricing. Call 925-449-3000.',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <LocalBusinessSchema />
+  <Header />
+  <main>
+    <Hero />
+    <ServiceGrid />
+    <CertificationBadges />
+    <WhyChooseUs />
+    <CTABanner />
+    <FAQSection faqs={homeFAQs} />
+  </main>
+  <ReviewSchema reviews={reviews} />
+  <Footer />
+</Layout>

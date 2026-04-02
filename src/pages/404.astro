@@ -1,0 +1,18 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { business } from '~/utils/business-info';
+
+const metadata = { title: 'Page Not Found', description: "The page you're looking for doesn't exist." };
+---
+
+<PageLayout metadata={metadata}>
+  <div class="text-center py-16">
+    <h1 class="text-6xl font-bold text-gray-300 mb-4">404</h1>
+    <h2 class="text-2xl font-bold text-gray-900 mb-3" style="font-family: var(--font-heading)">Page Not Found</h2>
+    <p class="text-gray-600 mb-8 max-w-md mx-auto">Sorry, the page you're looking for doesn't exist or has been moved.</p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a href="/" class="text-white px-6 py-3 rounded-md font-semibold transition-colors cursor-pointer" style="background: var(--color-primary)">Go Home</a>
+      <a href={`tel:${business.phone.repairTel}`} class="border px-6 py-3 rounded-md font-semibold transition-colors cursor-pointer" style="border-color: var(--color-primary); color: var(--color-primary)">Call {business.phone.repair}</a>
+    </div>
+  </div>
+</PageLayout>
