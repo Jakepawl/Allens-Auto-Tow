@@ -27,6 +27,8 @@ const { Content } = await render(location);
     name: `Auto Repair — ${location.data.area}`,
     description: location.data.description,
     slug: `areas/${location.id}`,
+    // Use the specific area name so areaServed reflects the page's city, not just Livermore
+    areaServed: location.data.area,
   }}
 >
   <Content />

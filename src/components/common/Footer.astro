@@ -78,9 +78,15 @@ const currentYear = new Date().getFullYear();
 
   <!-- Bottom bar -->
   <div class="border-t border-gray-800">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-gray-500">
       <span>&copy; {currentYear} {business.name}. All rights reserved.</span>
-      <span class="mt-2 sm:mt-0">Serving {business.serviceArea.slice(0, 3).join(', ')}, and surrounding areas</span>
+      <!-- Legal links (Privacy Policy, Terms of Service) -->
+      <nav aria-label="Legal" class="flex gap-4">
+        {footerNav.legal.map((link) => (
+          <a href={link.href} class="hover:text-white transition-colors">{link.label}</a>
+        ))}
+      </nav>
+      <span>Serving {business.serviceArea.slice(0, 3).join(', ')}, and surrounding areas</span>
     </div>
   </div>
 </footer>

@@ -87,13 +87,21 @@ export function buildLocalBusinessSchema() {
   };
 }
 
-export function buildServiceSchema(service: { name: string; description: string; slug: string }) {
+export function buildServiceSchema(service: {
+  name: string;
+  description: string;
+  /** Full relative path to the page, e.g. "services/auto-repair", "brands/honda", "areas/pleasanton" */
+  slug: string;
+  /** Override the areaServed city name; defaults to the business's home city */
+  areaServed?: string;
+}) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: service.name,
     description: service.description,
-    url: `${business.url}/services/${service.slug}`,
+    // slug already contains the full path prefix (services/, brands/, areas/)
+    url: `${business.url}/${service.slug}`,
     provider: {
       '@type': 'AutoRepair',
       name: business.name,
@@ -108,7 +116,9 @@ export function buildServiceSchema(service: { name: string; description: string;
     },
     areaServed: {
       '@type': 'City',
-      name: business.address.city,
+      // Use the caller-supplied area name when available (e.g. area pages), otherwise
+      // fall back to the business's home city for generic service/brand pages.
+      name: service.areaServed ?? business.address.city,
     },
   };
 }

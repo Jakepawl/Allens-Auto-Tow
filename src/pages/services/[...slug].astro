@@ -26,7 +26,8 @@ const { Content } = await render(service);
   schema={{
     name: service.data.title,
     description: service.data.description,
-    slug: service.id,
+    // Include the full path prefix so buildServiceSchema generates the correct URL
+    slug: `services/${service.id}`,
   }}
   faqs={service.data.faqs}
 >

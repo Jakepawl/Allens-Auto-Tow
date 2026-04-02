@@ -28,6 +28,15 @@ const { metadata, breadcrumbs, schema, faqs } = Astro.props;
   <!-- Inject Service structured data into <head> via the schema component -->
   <ServiceSchema name={schema.name} description={schema.description} slug={schema.slug} />
 
+  <!-- H1 derived from page metadata title — required for SEO (content files start at H2) -->
+  <h1
+    class="text-3xl md:text-4xl font-bold text-gray-900 mb-6"
+    style="font-family: var(--font-heading)"
+    data-animate
+  >
+    {metadata.title}
+  </h1>
+
   <!-- Main article content supplied by each service page -->
   <article class="prose prose-blue max-w-none">
     <slot />
