@@ -18,7 +18,11 @@
     "check:prettier": "prettier --check .",
     "fix": "npm run fix:eslint && npm run fix:prettier",
     "fix:eslint": "eslint --fix .",
-    "fix:prettier": "prettier -w ."
+    "fix:prettier": "prettier -w .",
+    "deploy": "astro build && wrangler pages deploy dist --project-name allens-auto-tow",
+    "gbp:auth": "tsx scripts/gbp-auth.ts",
+    "gbp:publish": "tsx scripts/publish-google-post.ts",
+    "gbp:publish-all": "tsx scripts/publish-google-post.ts --all"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.7",
@@ -71,6 +75,7 @@
     "sharp": "0.34.5",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2",
+    "tsx": "^4.21.0",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.58.0",
     "unist-util-visit": "^5.1.0"
