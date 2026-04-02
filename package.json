@@ -21,6 +21,8 @@
     "fix:prettier": "prettier -w ."
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.1.7",
+    "@astrojs/db": "^0.20.1",
     "@astrojs/preact": "^5.1.1",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",

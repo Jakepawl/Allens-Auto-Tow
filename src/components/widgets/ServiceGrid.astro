@@ -7,15 +7,15 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
 
 <section class="py-16 bg-gray-50" id="services">
   <div class="max-w-7xl mx-auto px-4">
-    <div class="text-center mb-12">
+    <div class="text-center mb-12" data-animate>
       <h2 class="text-3xl font-bold text-gray-900 mb-3">Our Services</h2>
       <p class="text-gray-600 max-w-2xl mx-auto">
         From routine oil changes to complex engine rebuilds — we handle it all with ASE-certified expertise.
       </p>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-stagger>
       {services.map((service) => (
-        <a href={`/services/${service.id}`} class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow group">
+        <a href={`/services/${service.id}`} class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow group" data-animate>
           <Icon name={service.data.icon} class="w-10 h-10 text-[var(--color-primary)] mb-4 group-hover:scale-110 transition-transform" />
           <h3 class="text-lg font-semibold text-gray-900 mb-2">{service.data.title}</h3>
           <p class="text-sm text-gray-600">{service.data.shortDescription}</p>

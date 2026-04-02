@@ -1,0 +1,51 @@
+---
+// Lightweight Intersection Observer for entrance animations.
+// Add data-animate to any element to animate it on scroll.
+// Add data-stagger to a parent to stagger child animations.
+// Variants: data-animate (up), data-animate="fade-left", data-animate="fade-right",
+//           data-animate="scale", data-animate="fade"
+---
+
+<script>
+  function initAnimations() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Add the visible class to trigger the CSS transition
+            entry.target.classList.add('is-visible');
+            // Once revealed, stop watching this element
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        // Fire when at least 10% of the element is visible
+        threshold: 0.1,
+        // Trigger slightly before the element reaches the viewport bottom
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    // Observe all individually-animated elements
+    document.querySelectorAll('[data-animate]').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // For stagger containers, also observe their direct [data-animate] children
+    // (querySelectorAll above already catches them — this block is a no-op guard
+    //  in case a stagger child wasn't already selected, e.g. nested containers)
+    document.querySelectorAll('[data-stagger]').forEach((container) => {
+      container.querySelectorAll('[data-animate]').forEach((el) => {
+        observer.observe(el);
+      });
+    });
+  }
+
+  // Run on the initial page load
+  initAnimations();
+
+  // Re-initialise after Astro View Transition page swaps so animations
+  // fire correctly on every client-side navigation
+  document.addEventListener('astro:after-swap', initAnimations);
+</script>

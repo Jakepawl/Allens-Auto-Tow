@@ -165,3 +165,69 @@ h1, h2, h3, h4, h5, h6 {
 .dd *:first-child {
   margin-top: 0;
 }
+
+/* ═══════════════════════════════════════════════════
+   Choreographed Entrance Animations
+   - Intersection Observer triggers .is-visible class
+   - Respects prefers-reduced-motion
+   ═══════════════════════════════════════════════════ */
+
+/* Base: elements start invisible and translate up */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  will-change: opacity, transform;
+}
+
+/* Variant: fade in from left */
+[data-animate="fade-left"] {
+  transform: translateX(-24px);
+}
+
+/* Variant: fade in from right */
+[data-animate="fade-right"] {
+  transform: translateX(24px);
+}
+
+/* Variant: scale up */
+[data-animate="scale"] {
+  transform: scale(0.95);
+}
+
+/* Variant: just fade (no movement) */
+[data-animate="fade"] {
+  transform: none;
+}
+
+/* When element enters viewport */
+[data-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* Stagger delays for grid children */
+[data-stagger] > [data-animate]:nth-child(1)  { transition-delay: 0ms; }
+[data-stagger] > [data-animate]:nth-child(2)  { transition-delay: 60ms; }
+[data-stagger] > [data-animate]:nth-child(3)  { transition-delay: 120ms; }
+[data-stagger] > [data-animate]:nth-child(4)  { transition-delay: 180ms; }
+[data-stagger] > [data-animate]:nth-child(5)  { transition-delay: 240ms; }
+[data-stagger] > [data-animate]:nth-child(6)  { transition-delay: 300ms; }
+[data-stagger] > [data-animate]:nth-child(7)  { transition-delay: 360ms; }
+[data-stagger] > [data-animate]:nth-child(8)  { transition-delay: 420ms; }
+[data-stagger] > [data-animate]:nth-child(9)  { transition-delay: 480ms; }
+[data-stagger] > [data-animate]:nth-child(10) { transition-delay: 540ms; }
+[data-stagger] > [data-animate]:nth-child(11) { transition-delay: 600ms; }
+[data-stagger] > [data-animate]:nth-child(12) { transition-delay: 660ms; }
+[data-stagger] > [data-animate]:nth-child(13) { transition-delay: 720ms; }
+[data-stagger] > [data-animate]:nth-child(14) { transition-delay: 780ms; }
+[data-stagger] > [data-animate]:nth-child(15) { transition-delay: 840ms; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
