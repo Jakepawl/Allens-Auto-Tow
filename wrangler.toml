@@ -1,0 +1,6 @@
+name = "allens-auto-tow"
+compatibility_date = "2024-01-01"
+
+[vars]
+BUSINESS_EMAIL = "info@allensautotow.com"
+BUSINESS_NAME = "Allen's Automotive & Towing Inc"

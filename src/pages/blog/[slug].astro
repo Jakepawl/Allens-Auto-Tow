@@ -1,0 +1,67 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageLayout from '~/layouts/PageLayout.astro';
+import CTABanner from '~/components/widgets/CTABanner.astro';
+import { business } from '~/utils/business-info';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const metadata = {
+  title: post.data.title,
+  description: post.data.description,
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishDate.toISOString(),
+  dateModified: (post.data.updateDate ?? post.data.publishDate).toISOString(),
+  author: { '@type': 'Organization', name: business.name },
+  publisher: { '@type': 'Organization', name: business.name, url: business.url },
+  mainEntityOfPage: `${business.url}/blog/${post.id}`,
+};
+---
+
+<PageLayout
+  metadata={metadata}
+  breadcrumbs={[
+    { label: 'Blog', href: '/blog' },
+    { label: post.data.title, href: `/blog/${post.id}` },
+  ]}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-3xl mx-auto">
+    <header class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3" style="font-family: var(--font-heading)">{post.data.title}</h1>
+      <div class="flex items-center gap-3 text-sm text-gray-500">
+        <time>{post.data.publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        {post.data.category && (
+          <>
+            <span>·</span>
+            <span style="color: var(--color-primary)">{post.data.category}</span>
+          </>
+        )}
+      </div>
+    </header>
+
+    <div class="prose prose-blue max-w-none">
+      <Content />
+    </div>
+  </article>
+
+  <div class="mt-12">
+    <CTABanner headline="Need This Service?" subtext="Our ASE-certified mechanics are ready to help. Same-day appointments available." />
+  </div>
+</PageLayout>
